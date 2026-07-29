@@ -94,6 +94,9 @@
   .field label{display:block;font-size:13px;color:var(--navy);margin-bottom:6px;font-weight:600}
   .field input,.field select{width:100%;padding:13px;border-radius:10px;border:1px solid var(--line-2);background:#fff;color:var(--ink);font-family:var(--bodyf);font-size:14.5px}
   .field input:focus,.field select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,118,194,.12)}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:11.5px;line-height:1.5;color:var(--muted)}
+  .consent input{margin-top:2px;width:16px;height:16px;flex:none;accent-color:var(--blue)}
+  .consent a{color:var(--blue);font-weight:600}.consent b{color:var(--ink)}
 
   .statstrip{background:#082038;border-top:1px solid rgba(255,255,255,.06)}
   .statstrip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
@@ -291,6 +294,8 @@
       <div class="field"><label>Annual revenue range</label><select><option>Under $500K</option><option selected>$500K – $1M</option><option>$1M – $2M</option><option>Over $2M</option></select></div>
       <div class="field"><label>Biggest bottleneck right now</label><select><option>Estimates not followed up</option><option>No visible pipeline</option><option>Follow-up depends on memory</option><option>Team accountability</option><option>Website / getting found online</option></select></div>
       <div class="field"><label>Work email *</label><input type="email" placeholder="you@company.com"></div>
+      <div class="field"><label>Mobile phone</label><input type="tel" placeholder="(919) 555-0123"></div>
+      <label class="consent"><input type="checkbox"><span>By checking this box, you agree to receive SMS text messages and phone calls from PeakReach Managed Systems about your inquiry and our services. Message frequency varies. Message &amp; data rates may apply. Reply <b>STOP</b> to opt out or <b>HELP</b> for help. Consent is not a condition of purchase. See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms</a>.</span></label>
       <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:20px">Apply for My Revenue Leak Audit</button>
       <p class="fine" style="text-align:center;margin-top:13px">You keep your business data and client-owned accounts. No high-pressure sales.</p>
     </div>
