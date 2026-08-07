@@ -66,8 +66,8 @@
   .logo{display:flex;align-items:center;gap:12px}
   .logo img{height:42px;width:auto;display:block}
   .logo .txt{display:flex;flex-direction:column;line-height:1}
-  .logo .txt b{font-family:var(--display);font-weight:700;font-size:21px;color:var(--navy);letter-spacing:-.03em}
-  .logo .txt span{font-family:var(--mono);font-size:9px;letter-spacing:.24em;color:var(--teal-deep);margin-top:4px}
+  .logo .txt b{font-family:var(--display);font-weight:700;font-size:28px;color:var(--navy);letter-spacing:-.015em}
+  .logo .txt span{font-family:var(--display);font-weight:600;font-size:9px;letter-spacing:.454em;margin-right:-.454em;color:#0E2A47;margin-top:7px;text-transform:uppercase}
   nav.links{display:flex;gap:26px;align-items:center}
   nav.links a{font-size:14.5px;color:#243b52;font-weight:600}
   nav.links a:hover{color:var(--blue)}
@@ -233,9 +233,12 @@
   footer h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#dbe8f5;margin-bottom:16px;font-family:var(--mono);font-weight:500}
   footer ul{list-style:none;display:grid;gap:11px}footer a:hover{color:#fff}
   .foot-logo{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-  .foot-logo img{height:40px}.foot-logo b{font-family:var(--display);font-weight:700;color:#fff;font-size:18px}
+  .foot-logo img{height:44px}
+  .foot-logo .ftxt{display:flex;flex-direction:column;line-height:1}
+  .foot-logo .ftxt b{font-family:var(--display);font-weight:700;color:#fff;font-size:23px;letter-spacing:-.015em}
+  .foot-logo .ftxt span{font-family:var(--display);font-weight:600;font-size:7.4px;letter-spacing:.454em;margin-right:-.454em;color:#F2F7FB;margin-top:6px;text-transform:uppercase}
   .foot-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:48px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7f9bb6;font-family:var(--mono)}
-  .verse{color:var(--teal);font-family:var(--mono);font-size:12.5px;margin-top:16px}
+  .verse{color:#9FB3C8;font-family:var(--mono);font-size:12.5px;margin-top:16px}
   .legal-interim{font-size:12px;color:#6d89a4;margin-top:10px;max-width:420px}
   .staging-flag{position:fixed;bottom:14px;left:14px;z-index:99;background:var(--ochre);color:#3a2400;font-family:var(--mono);font-size:11px;font-weight:600;padding:7px 12px;border-radius:8px;letter-spacing:.05em;box-shadow:var(--shadow)}
   .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}.reveal.in{opacity:1;transform:none}
@@ -529,7 +532,7 @@
 <footer><div class="wrap">
   <div class="foot-grid">
     <div>
-      <div class="foot-logo"><img src="assets/mark-color.png" alt="PeakReach"><b>PeakReach Managed Systems</b></div>
+      <div class="foot-logo"><img src="assets/mark-color.png" alt="PeakReach"><span class="ftxt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span></div>
       <p style="max-width:360px">We install and manage the systems that make revenue, accountability, and operations visible, repeatable, and less dependent on the owner.</p>
       <p class="legal-interim">PeakReach Managed Systems is operated by PeakReach Marketing Solutions LLC.</p>
     </div>
