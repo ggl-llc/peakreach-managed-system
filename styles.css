@@ -58,14 +58,13 @@ header.nav .wrap{display:flex;align-items:center;justify-content:space-between;h
 nav.links{display:flex;gap:26px;align-items:center}
 nav.links a{font-size:14.5px;color:#243b52;font-weight:600}
 nav.links a:hover,nav.links a.active{color:var(--blue)}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.nav-actions a.btn-ghost{color:var(--navy)}
-.nav-actions a.btn-ghost:hover{color:var(--blue)}
-.menu-btn{display:none;background:none;border:0;color:var(--navy);font-size:26px;line-height:1;cursor:pointer;padding:2px 6px}
+.menu-btn{display:none;background:none;border:0;color:var(--navy);font-size:27px;line-height:1;cursor:pointer;padding:2px 8px;margin-left:6px}
 @media(max-width:1050px){
-  nav.links{position:fixed;left:0;right:0;top:78px;flex-direction:column;align-items:stretch;background:#fff;border-bottom:1px solid var(--line);padding:12px 24px;gap:2px;box-shadow:var(--shadow);transform:translateY(-150%);transition:transform .25s ease;z-index:49}
-  nav.links.open{transform:translateY(0)}
-  nav.links a{padding:13px 2px;border-bottom:1px solid var(--line);font-size:15px}
+  header.nav .wrap{position:relative}
+  nav.links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 20px;gap:2px;box-shadow:var(--shadow-lg);z-index:60}
+  nav.links.open{display:flex}
+  nav.links a{padding:14px 6px;border-bottom:1px solid var(--line);font-size:15.5px}
+  nav.links a.btn{width:100%;justify-content:center;border-bottom:0;margin-top:8px}
   .menu-btn{display:block}
 }
 /* icons (Lucide) inside tiles */
