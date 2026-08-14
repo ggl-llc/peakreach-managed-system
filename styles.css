@@ -58,8 +58,21 @@ header.nav .wrap{display:flex;align-items:center;justify-content:space-between;h
 nav.links{display:flex;gap:26px;align-items:center}
 nav.links a{font-size:14.5px;color:#243b52;font-weight:600}
 nav.links a:hover,nav.links a.active{color:var(--blue)}
-nav.links a.btn{color:#fff}
-@media(max-width:1050px){nav.links a:not(.btn){display:none}}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-actions a.btn-ghost{color:var(--navy)}
+.nav-actions a.btn-ghost:hover{color:var(--blue)}
+.menu-btn{display:none;background:none;border:0;color:var(--navy);font-size:26px;line-height:1;cursor:pointer;padding:2px 6px}
+@media(max-width:1050px){
+  nav.links{position:fixed;left:0;right:0;top:78px;flex-direction:column;align-items:stretch;background:#fff;border-bottom:1px solid var(--line);padding:12px 24px;gap:2px;box-shadow:var(--shadow);transform:translateY(-150%);transition:transform .25s ease;z-index:49}
+  nav.links.open{transform:translateY(0)}
+  nav.links a{padding:13px 2px;border-bottom:1px solid var(--line);font-size:15px}
+  .menu-btn{display:block}
+}
+/* icons (Lucide) inside tiles */
+.card .ico svg,.cbox .ic svg{color:#fff;width:24px;height:24px}
+.p-ico svg,.opitem .oi svg,.channel .ico svg{color:var(--navy);width:22px;height:22px}
+.kicker .num svg{width:14px;height:14px;color:#fff}
+svg.lucide{stroke-width:2}
 
 .hero{position:relative;overflow:hidden;background:linear-gradient(155deg,#0A2440 0%,#0E3157 55%,#123f6d 100%);padding:96px 0 108px;color:#c9d8e8}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(680px 380px at 82% 8%, rgba(57,160,228,.28), transparent 62%),radial-gradient(560px 360px at 6% 96%, rgba(22,192,164,.20), transparent 60%);pointer-events:none}

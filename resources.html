@@ -25,13 +25,16 @@
     <a href="standard.html">The Standard</a>
     <a class="active" href="resources.html">Resources</a>
     <a href="contact.html">Contact</a>
-    <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
-    <a class="btn btn-primary" href="index.html#audit" style="padding:11px 20px">Revenue Leak Audit</a>
   </nav>
+  <div class="nav-actions">
+    <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
+    <a class="btn btn-teal" href="index.html#audit" style="padding:11px 20px">Revenue Leak Audit</a>
+    <button class="menu-btn" data-menu aria-label="Menu">☰</button>
+  </div>
 </div></header>
 
 <section class="pagehero"><div class="wrap">
-  <span class="kicker on-dark"><span class="num">✦</span>Resources</span>
+  <span class="kicker on-dark"><span class="num"><i data-lucide="sparkles"></i></span>Resources</span>
   <h1>Notes from the operators.</h1>
   <p>Short, practical reads on the things that quietly decide whether a service business grows: revenue visibility, accountability, and running on systems instead of memory.</p>
 </div></section>
@@ -103,9 +106,7 @@
     <span><a href="index.html#audit" style="color:inherit">Revenue Leak Audit</a> · <a href="contact.html" style="color:inherit">Contact</a> · <a href="privacy.html" style="color:inherit">Privacy</a> · <a href="terms.html" style="color:inherit">Terms</a></span>
   </div>
 </div></footer>
-<script>
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="app.js"></script>
 </body>
 </html>

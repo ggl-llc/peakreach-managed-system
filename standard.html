@@ -25,13 +25,16 @@
     <a class="active" href="standard.html">The Standard</a>
     <a href="resources.html">Resources</a>
     <a href="contact.html">Contact</a>
-    <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
-    <a class="btn btn-primary" href="index.html#audit" style="padding:11px 20px">Revenue Leak Audit</a>
   </nav>
+  <div class="nav-actions">
+    <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
+    <a class="btn btn-teal" href="index.html#audit" style="padding:11px 20px">Revenue Leak Audit</a>
+    <button class="menu-btn" data-menu aria-label="Menu">☰</button>
+  </div>
 </div></header>
 
 <section class="pagehero"><div class="wrap">
-  <span class="kicker on-dark"><span class="num">✦</span>Methodology</span>
+  <span class="kicker on-dark"><span class="num"><i data-lucide="sparkles"></i></span>Methodology</span>
   <h1>The PeakReach Standard™</h1>
   <p>The discipline behind every system we install. Not a product you buy — the operating standard that makes the work measurable, documented, and repeatable, so results don't depend on memory or a single person.</p>
 </div></section>
@@ -50,7 +53,7 @@
     </ul>
   </div>
   <div class="panel-note">
-    <span class="kicker" style="color:var(--teal-deep)"><span class="num" style="background:var(--teal)">➜</span>The promise</span>
+    <span class="kicker" style="color:var(--teal-deep)"><span class="num" style="background:var(--teal)"><i data-lucide="arrow-right"></i></span>The promise</span>
     <h3>Nothing critical slips.</h3>
     <p>Revenue, accountability, and operations stay visible, assigned, and measurable — through systems, not memory. That's the standard we hold every install to.</p>
   </div>
@@ -93,9 +96,9 @@
     <h2 class="big">What a standard buys you</h2>
   </div>
   <div class="cards">
-    <div class="card reveal"><div class="ico">📈</div><h3>Consistency</h3><p>The right work happens the same way every time — not only when the owner is watching.</p></div>
-    <div class="card reveal"><div class="ico">🧭</div><h3>Less owner dependency</h3><p>The business runs on documented systems, so it doesn't live or die by one person's memory.</p></div>
-    <div class="card reveal"><div class="ico">🔎</div><h3>Visibility</h3><p>You see verified activity and outcomes — what ran, what's pending, and what needs a decision.</p></div>
+    <div class="card reveal"><div class="ico"><i data-lucide="trending-up"></i></div><h3>Consistency</h3><p>The right work happens the same way every time — not only when the owner is watching.</p></div>
+    <div class="card reveal"><div class="ico"><i data-lucide="compass"></i></div><h3>Less owner dependency</h3><p>The business runs on documented systems, so it doesn't live or die by one person's memory.</p></div>
+    <div class="card reveal"><div class="ico"><i data-lucide="search"></i></div><h3>Visibility</h3><p>You see verified activity and outcomes — what ran, what's pending, and what needs a decision.</p></div>
   </div>
 </div></section>
 
@@ -145,9 +148,7 @@
     <span><a href="index.html#audit" style="color:inherit">Revenue Leak Audit</a> · <a href="contact.html" style="color:inherit">Contact</a> · <a href="privacy.html" style="color:inherit">Privacy</a> · <a href="terms.html" style="color:inherit">Terms</a></span>
   </div>
 </div></footer>
-<script>
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="app.js"></script>
 </body>
 </html>
