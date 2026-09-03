@@ -366,3 +366,6 @@ footer ul{list-style:none;display:grid;gap:11px}footer a:hover{color:#fff}
 @media(max-width:940px){.apply-grid{grid-template-columns:1fr;gap:40px}}
 h1.big{font-size:42px;margin-top:18px;color:var(--ink);line-height:1.05}
 @media(max-width:600px){h1.big{font-size:29px}}
+a.card{display:block;color:inherit}
+@media(max-width:980px){.cards[style*="repeat(5,1fr)"]{grid-template-columns:repeat(2,1fr)!important}.cards[style*="repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:520px){.cards[style*="repeat(5,1fr)"],.cards[style*="repeat(4,1fr)"]{grid-template-columns:1fr!important}}
