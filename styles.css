@@ -364,3 +364,5 @@ footer ul{list-style:none;display:grid;gap:11px}footer a:hover{color:#fff}
 .apply-grid{display:grid;grid-template-columns:1fr .95fr;gap:56px;align-items:center}
 .apply-grid .form-card{margin-top:0}
 @media(max-width:940px){.apply-grid{grid-template-columns:1fr;gap:40px}}
+h1.big{font-size:42px;margin-top:18px;color:var(--ink);line-height:1.05}
+@media(max-width:600px){h1.big{font-size:29px}}

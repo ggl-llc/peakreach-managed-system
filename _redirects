@@ -1,0 +1,2 @@
+# Canonical host: force apex -> www (Cloudflare Pages redirects file)
+https://peakreachms.com/* https://www.peakreachms.com/:splat 301
