@@ -228,7 +228,8 @@ svg.lucide{stroke-width:2}
 .final .lead{color:#cfe0f0;position:relative}
 
 footer{background:#071c33;color:#9fb8d2;padding:66px 0 30px;font-size:14px}
-.foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:42px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
+@media(max-width:960px){.foot-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){.foot-grid{grid-template-columns:1fr}}
 footer h4{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#dbe8f5;margin-bottom:16px;font-family:var(--display);font-weight:500}
 footer ul{list-style:none;display:grid;gap:11px}footer a:hover{color:#fff}

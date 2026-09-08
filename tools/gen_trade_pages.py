@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Generate /[trade]-crm pages for peakreachms.com per ADR-017. Run from repo root."""
-import json, re, html as H
+import json, re, html as H, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from seo_phase3 import normalize_html
 
 HOST = "https://www.peakreachms.com/"
 
@@ -100,11 +102,19 @@ TRADES = {
 ORG = '{"@context":"https://schema.org","@type":"Organization","name":"PeakReach Managed Systems","legalName":"PeakReach Marketing Solutions LLC","url":"https://www.peakreachms.com/","logo":"https://www.peakreachms.com/assets/mark-color.png","email":"info@peakreachms.com","slogan":"Built by operators. Run by systems.","description":"PeakReach installs and manages the systems that make revenue, accountability, and operations visible, repeatable, and less dependent on the owner.","address":{"@type":"PostalAddress","addressLocality":"Sanford","addressRegion":"NC","addressCountry":"US"},"areaServed":"United States"}'
 
 def e(s): return H.escape(s, quote=True)
+def noun(t): return t["name"] if t["name"].isupper() else t["name"].lower()   # "HVAC" stays, "Landscaping" -> "landscaping"
+def kw_title(t): return t["kw"][0].upper() + t["kw"][1:]                       # "landscaping CRM" -> "Landscaping CRM"
+def article(t): return "An" if t["kw"][0].lower() in "aeiou" or t["kw"].startswith("HVAC") else "A"
 
 def page(t):
     url = HOST + t["slug"]
-    title = f'{t["kw"]} — stop losing the jobs you already quoted | PeakReach'
-    desc = f'A {t["kw"]} that follows up: PeakReach installs and operates the Revenue Recovery System for {t["name"].lower()} companies — every estimate tracked, followed up, and accounted for. $2,500 + $1,497/mo.'
+    title = f'{kw_title(t)} That Follows Up on Every Quote — Managed by PeakReach'
+    desc = f'{article(t)} {t["kw"]} that actually follows up. PeakReach installs and runs the Revenue Recovery System for {noun(t)} companies — every estimate tracked and followed up.'
+    others = " · ".join(f'<a href="/{o["slug"]}" style="color:var(--blue)">{e(kw_title(o))}</a>' for o in TRADES.values() if o["slug"] != t["slug"])
+    crumbs = json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":HOST},
+        {"@type":"ListItem","position":2,"name":"Home Services & Contractors","item":HOST + "for-home-services"},
+        {"@type":"ListItem","position":3,"name":kw_title(t),"item":url}]}, ensure_ascii=False)
     faq_ld = json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in t["faqs"]]}, ensure_ascii=False)
     pains = "\n".join(f'    <div class="card"><h3>{e(h)}</h3><p>{e(p)}</p></div>' for h,p in t["pains"])
     does = "\n".join(f'    <div class="card"><div class="ico"><i data-lucide="{i}"></i></div><h3>{e(h)}</h3><p>{e(p)}</p></div>' for i,h,p in t["does"])
@@ -139,6 +149,9 @@ def page(t):
 </script>
 <script type="application/ld+json">
 {faq_ld}
+</script>
+<script type="application/ld+json">
+{crumbs}
 </script>
 </head>
 <body>
@@ -180,7 +193,7 @@ def page(t):
 </div></section>
 
 <section class="section"><div class="wrap">
-  <div class="center"><span class="kicker"><span class="num">02</span>What PeakReach runs for {e(t["name"].lower())} companies</span><h2 class="big">Every estimate, accounted for</h2></div>
+  <div class="center"><span class="kicker"><span class="num">02</span>What PeakReach runs for {e(noun(t))} companies</span><h2 class="big">Every estimate, accounted for</h2></div>
   <div class="cards" style="grid-template-columns:repeat(4,1fr)">
 {does}
   </div>
@@ -201,7 +214,7 @@ def page(t):
       <div class="cta-row"><a class="btn btn-ghost-d" href="crm-for-service-businesses.html">What actually matters in a CRM for service businesses →</a></div>
     </div>
     <div class="fit good">
-      <h3>✓ Good fit for {e(t["name"].lower())}</h3>
+      <h3>✓ Good fit for {e(noun(t))}</h3>
       <ul>
 {fit}
       </ul>
@@ -220,11 +233,11 @@ def page(t):
 </div></section>
 
 <section class="section"><div class="wrap">
-  <div class="center"><span class="kicker"><span class="num">?</span>FAQ</span><h2 class="big">Common questions from {e(t["name"].lower())} owners</h2></div>
+  <div class="center"><span class="kicker"><span class="num">?</span>FAQ</span><h2 class="big">Common questions from {e(noun(t))} owners</h2></div>
   <div class="faq">
 {faqs}
   </div>
-  <p class="center" style="margin-top:32px;font-size:14px;color:var(--muted)">Other trades: <a href="for-home-services.html" style="color:var(--blue)">home services &amp; contractors hub</a></p>
+  <p class="center" style="margin-top:32px;font-size:14px;color:var(--muted)">Other trades: {others} · <a href="/crm-for-contractors" style="color:var(--blue)">CRM for Contractors</a> · <a href="/for-home-services" style="color:var(--blue)">Home services &amp; contractors hub</a></p>
 </div></section>
 
 <footer><div class="wrap">
@@ -269,5 +282,5 @@ def page(t):
 
 if __name__ == "__main__":
     for t in TRADES.values():
-        open(t["slug"] + ".html", "w").write(page(t))
+        open(t["slug"] + ".html", "w", encoding="utf-8").write(normalize_html(t["slug"], page(t)))
         print("wrote", t["slug"] + ".html")
