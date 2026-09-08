@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ga4:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z7E84LTQZ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-Z7E84LTQZ6");</script>
+<!-- ga4:end -->
 <title>Contact — PeakReach Managed Systems | Sanford, NC</title>
 <link rel="canonical" href="https://www.peakreachms.com/contact">
 <meta property="og:url" content="https://www.peakreachms.com/contact">
@@ -89,7 +93,7 @@
           message: (form.message.value || "").trim(), source: "Website - Contact Page", page: location.pathname };
         btn.disabled = true; statusEl.style.display = "block"; statusEl.textContent = "Sending…";
         fetch("https://services.leadconnectorhq.com/hooks/PU3svlBW3x81ujPelNlV/webhook-trigger/3e6d4a05-cadc-4bf4-ac07-69c952c619c8", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
-          .then(function (res) { if (!res.ok) throw new Error(res.status); form.reset();
+          .then(function (res) { if (!res.ok) throw new Error(res.status); form.reset(); if (window.gtag) gtag("event", "contact_form_success", { form: "contact", page: location.pathname });
             statusEl.textContent = "Thanks — your message is in. We reply within one business day."; btn.disabled = false; })
           .catch(function () { statusEl.textContent = "Something went wrong. Please email info@peakreachms.com."; btn.disabled = false; });
       });

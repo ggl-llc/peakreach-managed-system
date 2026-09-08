@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ga4:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z7E84LTQZ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-Z7E84LTQZ6");</script>
+<!-- ga4:end -->
 <title>PeakReach Managed Systems — Business Systems for Service Companies</title>
 <link rel="canonical" href="https://www.peakreachms.com/">
 <meta name="description" content="PeakReach installs and manages the systems that make revenue, accountability, and operations visible, assigned, and measurable — then stays to run them. Built by operators. Run by systems.">
@@ -81,7 +85,7 @@
   "url": "https://www.peakreachms.com/"
  },
  "image": "https://www.peakreachms.com/assets/joaquin.jpg",
- "url": "https://www.peakreachms.com/#philosophy",
+ "url": "https://www.peakreachms.com/#philosophy", "sameAs": ["https://www.linkedin.com/in/joaquin-santiz-26830683/"],
  "description": "Founder and operator of PeakReach Managed Systems and CEO of Green Garden Landscaping (Sanford, NC). Built the Revenue Recovery System inside a real landscaping company before standardizing it for other trades."
 }
 </script>
@@ -384,7 +388,7 @@
           body: JSON.stringify(payload)
         })
           .then(function (res) { if (!res.ok) throw new Error(res.status);
-            form.reset();
+            form.reset(); if (window.gtag) gtag("event", "rla_form_success", { form: "revenue_leak_audit", page: location.pathname });
             statusEl.textContent = "Thanks — your Revenue Leak Audit request is in. We'll reach out within one business day.";
             btn.disabled = false;
           })

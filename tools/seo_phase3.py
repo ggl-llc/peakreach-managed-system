@@ -28,9 +28,13 @@ OG_IMG = f"{HOST}/assets/og-default.png"
 LUCIDE = "https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"
 WEBHOOK = "https://services.leadconnectorhq.com/hooks/PU3svlBW3x81ujPelNlV/webhook-trigger/3e6d4a05-cadc-4bf4-ac07-69c952c619c8"
 
+GA4_ID = "G-Z7E84LTQZ6"   # GA4 stream "www.peakreachms website" (stream 15737071187). NOT GGL G-VREXTTBG84, NOT RGB G-D2XBKMYMGY. None = no tag.
+PERSON_SAMEAS = ["https://www.linkedin.com/in/joaquin-santiz-26830683/"]
+ORG_SAMEAS = []   # add LinkedIn company page URL once it exists
+
 FOUNDER = {"@type": "Person", "name": "Joaquin Santiz", "jobTitle": "Founder & Operator",
            "worksFor": {"@type": "Organization", "name": "PeakReach Managed Systems", "url": HOST + "/"},
-           "image": HOST + "/assets/joaquin.jpg", "url": HOST + "/#philosophy"}
+           "image": HOST + "/assets/joaquin.jpg", "url": HOST + "/#philosophy", "sameAs": PERSON_SAMEAS}
 PUBLISHER = {"@type": "Organization", "name": "PeakReach Managed Systems", "url": HOST + "/",
              "logo": {"@type": "ImageObject", "url": HOST + "/assets/mark-color.png"}}
 
@@ -154,6 +158,18 @@ def normalize_html(name, t):
     t = re.sub(r'<img src="assets/joaquin\.jpg" alt="([^"]*)"(?![^>]*width)', r'<img src="assets/joaquin.jpg" alt="\1" width="560" height="746" loading="lazy"', t)
     # 9. css cache bust
     t = re.sub(r'styles\.css\?v=\d+', f'styles.css?v={CSS_VER}', t)
+    # 10. GA4 (gtag) — one block per page, right after <head> opening tags; replaced on every run so the ID is single-sourced here
+    t = re.sub(r'\n<!-- ga4:start -->.*?<!-- ga4:end -->', '', t, flags=re.S)
+    if GA4_ID:
+        ga = (f'\n<!-- ga4:start -->\n<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>\n'
+              f'<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{GA4_ID}");</script>\n<!-- ga4:end -->')
+        t = t.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
+                      '<meta name="viewport" content="width=device-width, initial-scale=1">' + ga, 1)
+    # form success events (GA4 key events). Idempotent: only inserted where the success string exists without the event.
+    t = t.replace('form.reset();\n            statusEl.textContent = "Thanks — your Revenue Leak Audit request is in.',
+                  'form.reset(); if (window.gtag) gtag("event", "rla_form_success", { form: "revenue_leak_audit", page: location.pathname });\n            statusEl.textContent = "Thanks — your Revenue Leak Audit request is in.')
+    t = t.replace('form.reset();\n            statusEl.textContent = "Thanks — your message is in.',
+                  'form.reset(); if (window.gtag) gtag("event", "contact_form_success", { form: "contact", page: location.pathname });\n            statusEl.textContent = "Thanks — your message is in.')
     if name == "404":
         return t
     # 3. social tags
@@ -200,6 +216,13 @@ def normalize_html(name, t):
             {"@type": "ListItem", "position": 2, "name": HUBS[name], "item": url}]})
     if extra:
         t = t.replace("</head>", "\n".join(_ld(x) for x in extra) + "\n</head>", 1)
+    # Organization sameAs (site-wide Organization block, both pretty and compact JSON forms)
+    t = re.sub(r'("url": "https://www\.peakreachms\.com/#philosophy"),\s*"sameAs":\s*\[[^\]]*\]', r'\1', t)
+    if PERSON_SAMEAS:   # Person block (index + article authors) — single-sourced from PERSON_SAMEAS
+        t = re.sub(r'("url": "https://www\.peakreachms\.com/#philosophy")', lambda m: m.group(1) + ', "sameAs": ' + json.dumps(PERSON_SAMEAS), t)
+    t = re.sub(r'("areaServed":\s*"United States"),\s*"sameAs":\s*\[[^\]]*\]', r'\1', t)
+    if ORG_SAMEAS:
+        t = re.sub(r'("areaServed":\s*"United States")', lambda m: m.group(1) + ', "sameAs": ' + json.dumps(ORG_SAMEAS), t)
     # 7. contact form
     if name == "contact":
         t = re.sub(r"<form data-demo>.*?</form>", lambda m: CONTACT_FORM, t, count=1, flags=re.S)

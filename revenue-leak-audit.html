@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ga4:start -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z7E84LTQZ6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-Z7E84LTQZ6");</script>
+<!-- ga4:end -->
 <title>Revenue Leak Audit — PeakReach Managed Systems</title>
 <link rel="canonical" href="https://www.peakreachms.com/revenue-leak-audit">
 <meta name="description" content="Apply for a 20-30 minute operator-led Revenue Leak Audit. We identify up to three observable revenue leaks and give you a one-page Revenue Leak Snapshot.">
@@ -119,7 +123,7 @@
           body: JSON.stringify(payload)
         })
           .then(function (res) { if (!res.ok) throw new Error(res.status);
-            form.reset();
+            form.reset(); if (window.gtag) gtag("event", "rla_form_success", { form: "revenue_leak_audit", page: location.pathname });
             statusEl.textContent = "Thanks — your Revenue Leak Audit request is in. We'll reach out within one business day.";
             btn.disabled = false;
           })
