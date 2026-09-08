@@ -1,6 +1,6 @@
 # PeakReach Website — SEO Audit & Phase 3 Build Log
 **Site:** https://www.peakreachms.com · **Repo:** `ggl-llc/peakreach-managed-system` (static HTML, Cloudflare Pages)
-**Date:** 2026-09-08 · **Project:** PeakReach · **Status:** Phase 3 built locally, uncommitted, NOT deployed — awaiting approval.
+**Date:** 2026-09-08 · **Project:** PeakReach · **Status:** Phase 3 committed + pushed (`fbaeb97`); Phase 3b (GA4) staged in repo. **Deploy blocked:** Cloudflare Pages project `peakreach-managed-system` is disconnected from the GitHub account — push did not trigger a build (last live deploy `97ca7f8`, Sep 4). Joaquin must reconnect Git in Cloudflare (OAuth), then retry/push.
 
 > Freeze note: PeakReach product launch is frozen until 2026-09-15 (Índice Operativo §4); the marketing site was already ruled outside the freeze (2026-09-02) and Joaquin re-confirmed audit + in-repo fixes today. No push/deploy until his go.
 
@@ -15,7 +15,8 @@
 | Keywords ranking | only brand noise ("peak reach bv" — a Dutch company), `peak org login` via `sites.peakreachms.com` | resource_organic |
 | Backlinks | 650 links / 164 domains, Authority Score 6 | backlinks_overview |
 | Real referring domains | ~2: greengardenlandscape.com (300 sitewide), pglandscapingnc.com (60). Rest = directory/scraper spam | backlinks_refdomains |
-| Analytics | **No GA4/GTM tag on any page.** Search Console exists (verified 2026-09-02, sitemap submitted) but is not readable from this session | grep of all 25 HTML files; Notion/memory |
+| Analytics | No GA4/GTM tag on any page at audit time → **GA4 `G-Z7E84LTQZ6` added to all 25 pages (Phase 3b)** with key events `rla_form_success` / `contact_form_success` | grep of all 25 HTML files |
+| Search Console (Jun 6–Sep 5, 2026) | 27 clicks · 1,260 impressions · CTR 2.2% · avg pos 14.1 · 52 queries, all brand/noise ("peak reach bv" = Dutch company; "raleigh nc seo crm", "marketing advice raleigh" = legacy agency positioning). **Zero impressions for any "[trade] crm" or follow-up query.** | GSC Performance, read 2026-09-08 |
 | Pages | 24 indexable + 404 | repo |
 | Content age | first content 2026-08-14; SEO Phase 0–2 shipped 2026-09-03 | git log |
 
