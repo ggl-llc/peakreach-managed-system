@@ -23,7 +23,11 @@ import re, sys, os, glob, json, datetime, html as H
 
 HOST = "https://www.peakreachms.com"
 TODAY = datetime.date.today().isoformat()
-CSS_VER = TODAY.replace("-", "")
+def css_ver():
+    """Cache-bust token = hash of styles.css content, so any CSS change invalidates caches (Cloudflare + browser)."""
+    import hashlib
+    try: return hashlib.md5(open("styles.css", "rb").read()).hexdigest()[:8]
+    except FileNotFoundError: return TODAY.replace("-", "")
 OG_IMG = f"{HOST}/assets/og-default.png"
 LUCIDE = "https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"
 WEBHOOK = "https://services.leadconnectorhq.com/hooks/PU3svlBW3x81ujPelNlV/webhook-trigger/3e6d4a05-cadc-4bf4-ac07-69c952c619c8"
@@ -123,9 +127,15 @@ CONTACT_FORM = '''<form id="contact-form" novalidate>
 PRIORITY = {"index": "1.0", "revenue-recovery": "0.9", "pricing": "0.9", "revenue-leak-audit": "0.8",
             "for-home-services": "0.8", "for-commercial-services": "0.7", "for-dealers": "0.7", "for-print-shops": "0.7",
             "landscaping-crm": "0.8", "hvac-crm": "0.8", "plumbing-crm": "0.8", "electrician-crm": "0.8", "roofing-crm": "0.8",
-            "crm-for-contractors": "0.8", "crm-for-service-businesses": "0.7", "privacy": "0.2", "terms": "0.2"}
+            "crm-for-contractors": "0.8", "crm-for-service-businesses": "0.7", "privacy": "0.2", "terms": "0.2",
+            "best-landscaping-crm-software": "0.7", "best-hvac-crm-software": "0.7", "best-plumbing-crm-software": "0.7", "best-electrician-crm-software": "0.7",
+            "best-roofing-crm-software": "0.7", "hvac-estimating-software": "0.7", "landscaping-estimating-software": "0.7", "landscaping-business-software": "0.7"}
 ARTICLES = {"estimate-follow-up-system": "2026-08-14", "estimating-software-vs-follow-up": "2026-08-14",
-            "revenue-after-the-quote": "2026-08-14", "crm-for-service-businesses": "2026-09-02", "crm-for-contractors": "2026-09-02"}
+            "revenue-after-the-quote": "2026-08-14", "crm-for-service-businesses": "2026-09-02", "crm-for-contractors": "2026-09-02",
+            # P1 content set (tools/gen_articles.py) — datePublished is fixed here, never TODAY
+            "best-landscaping-crm-software": "2026-09-08", "best-hvac-crm-software": "2026-09-08", "best-plumbing-crm-software": "2026-09-08",
+            "best-electrician-crm-software": "2026-09-08", "best-roofing-crm-software": "2026-09-08",
+            "hvac-estimating-software": "2026-09-08", "landscaping-estimating-software": "2026-09-08", "landscaping-business-software": "2026-09-08"}
 HUBS = {"for-home-services": "Home Services & Contractors", "for-commercial-services": "Commercial Services",
         "for-dealers": "Dealers & High-Ticket Sellers", "for-print-shops": "Print, Sign & Promotional Shops"}
 
@@ -157,7 +167,7 @@ def normalize_html(name, t):
     t = t.replace('<img src="assets/mark-color.png" alt="PeakReach">', '<img src="assets/mark-color.png" alt="PeakReach" width="42" height="42">')
     t = re.sub(r'<img src="assets/joaquin\.jpg" alt="([^"]*)"(?![^>]*width)', r'<img src="assets/joaquin.jpg" alt="\1" width="560" height="746" loading="lazy"', t)
     # 9. css cache bust
-    t = re.sub(r'styles\.css\?v=\d+', f'styles.css?v={CSS_VER}', t)
+    t = re.sub(r'href="styles\.css(\?v=[0-9a-f]+)?"', f'href="styles.css?v={css_ver()}"', t)
     # 10. GA4 (gtag) — one block per page, right after <head> opening tags; replaced on every run so the ID is single-sourced here
     t = re.sub(r'\n<!-- ga4:start -->.*?<!-- ga4:end -->', '', t, flags=re.S)
     if GA4_ID:
@@ -247,6 +257,16 @@ def patch_css(dry=False):
     css = open("styles.css", encoding="utf-8").read()
     new = css.replace(".foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:42px}",
                       ".foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}\n@media(max-width:960px){.foot-grid{grid-template-columns:1fr 1fr}}")
+    ARTICLE_CSS = ("\n/* articles (tools/gen_articles.py) */\n"
+                   ".prose h2.intro-title{font-family:var(--display);font-size:28px;line-height:1.2;color:var(--navy-2);margin:0 0 22px;padding-bottom:16px;border-bottom:1px solid var(--line)}\n"
+                   ".tablewrap{overflow-x:auto;margin:6px 0 10px}\n"
+                   "table.cmp{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45}\n"
+                   "table.cmp th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);padding:10px 12px;border-bottom:2px solid var(--line-2);background:var(--sky-2)}\n"
+                   "table.cmp td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}\n"
+                   "table.cmp td:first-child{color:var(--ink);white-space:nowrap}\n"
+                   "@media(max-width:720px){table.cmp{min-width:640px}}\n")
+    if "table.cmp" not in new:
+        new = new.rstrip("\n") + "\n" + ARTICLE_CSS
     if new != css and not dry:
         open("styles.css", "w", encoding="utf-8").write(new)
     return new != css
@@ -257,6 +277,7 @@ if __name__ == "__main__":
     dry = "--dry" in args
     only = args[args.index("--only") + 1] if "--only" in args else None
     files = [only] if only else sorted(glob.glob("*.html"))
+    css_changed = patch_css(dry) if not only else False
     changed = 0
     for f in files:
         src = open(f, encoding="utf-8").read()
@@ -268,5 +289,5 @@ if __name__ == "__main__":
         print(("would change" if dry else "normalized") if out != src else "unchanged", f)
     if not only:
         n = write_sitemap(dry); print(f"sitemap.xml: {n} URLs")
-        print("styles.css:", "patched" if patch_css(dry) else "unchanged")
+        print("styles.css:", "patched" if css_changed else "unchanged", f"(v={css_ver()})")
     print(f"{changed}/{len(files)} pages changed" + (" (dry run)" if dry else ""))

@@ -237,7 +237,8 @@ def page(t):
   <div class="faq">
 {faqs}
   </div>
-  <p class="center" style="margin-top:32px;font-size:14px;color:var(--muted)">Other trades: {others} · <a href="/crm-for-contractors" style="color:var(--blue)">CRM for Contractors</a> · <a href="/for-home-services" style="color:var(--blue)">Home services &amp; contractors hub</a></p>
+  <p class="center" style="margin-top:32px;font-size:14px;color:var(--muted)">Comparing tools? <a href="/best-{t["slug"]}-software" style="color:var(--blue)">Best {e(kw_title(t))} software (2026), compared honestly</a> · <a href="/estimate-follow-up-system" style="color:var(--blue)">How to follow up on estimates</a></p>
+  <p class="center" style="margin-top:12px;font-size:14px;color:var(--muted)">Other trades: {others} · <a href="/crm-for-contractors" style="color:var(--blue)">CRM for Contractors</a> · <a href="/for-home-services" style="color:var(--blue)">Home services &amp; contractors hub</a></p>
 </div></section>
 
 <footer><div class="wrap">

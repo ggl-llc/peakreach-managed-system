@@ -1,6 +1,6 @@
 # PeakReach Website — SEO Audit & Phase 3 Build Log
 **Site:** https://www.peakreachms.com · **Repo:** `ggl-llc/peakreach-managed-system` (static HTML, Cloudflare Pages)
-**Date:** 2026-09-08 · **Project:** PeakReach · **Status:** Phase 3 committed + pushed (`fbaeb97`); Phase 3b (GA4) staged in repo. **Deploy blocked:** Cloudflare Pages project `peakreach-managed-system` is disconnected from the GitHub account — push did not trigger a build (last live deploy `97ca7f8`, Sep 4). Joaquin must reconnect Git in Cloudflare (OAuth), then retry/push.
+**Date:** 2026-09-08 · **Project:** PeakReach · **Status:** ✅ LIVE. Phase 3 (`fbaeb97`) + 3b (`1ddf968`) + docs (`a48843e`) deployed via Cloudflare Pages build `b2c48751` (production rolled to it after a stray retry of `97ca7f8` had taken production). Root cause of the initial non-deploy: Pages project was disconnected from GitHub; Joaquin reconnected it.
 
 > Freeze note: PeakReach product launch is frozen until 2026-09-15 (Índice Operativo §4); the marketing site was already ruled outside the freeze (2026-09-02) and Joaquin re-confirmed audit + in-repo fixes today. No push/deploy until his go.
 
@@ -42,16 +42,17 @@ Translation: the site is 3 weeks old with zero measurement and zero authority. R
 | 14 | `sites.peakreachms.com` (GHL funnels) is indexed for junk queries | Brand dilution | ⏳ P2 — set noindex in GHL or drop subdomain from search |
 | 15 | Only 5 informational articles; SERPs for target terms are listicles/Reddit | Intent mismatch — product pages alone won't rank | ⏳ P1 content plan (§4) |
 
-## 3. Phase 3 — what was built (repo, uncommitted)
+## 3. Phase 3 — what was built (deployed 2026-09-08)
 
 **New:** `tools/seo_phase3.py` (idempotent sitewide normalizer), `assets/og-default.png` (1200×630), README conventions.
 **Changed:** 24 HTML pages, `sitemap.xml`, `styles.css` (4-col footer + cache-bust `?v=20260908`), `tools/gen_trade_pages.py` (grammar, cross-links, BreadcrumbList, pipes through normalizer).
 **Verification done:** dry-run on one page first → full run → second run reports 0 changes (idempotent) → all JSON-LD parses → no `.html` hrefs remain → all 24 indexable pages have og/twitter → headless render of index/contact/landscaping-crm footers desktop+mobile OK → live check confirms Cloudflare serves clean URLs (`/landscaping-crm` 200).
-**Not verified (needs deploy):** contact form end-to-end (submit → contact appears in GHL location `PU3svlBW3x81ujPelNlV` with source "Website - Contact Page"). Do one real test submit after deploy and read the contact back.
+**Live read-back (2026-09-08, production HTML fetched with cache:no-store):** new titles ✓ · Industries footer ✓ · 0 `.html` links ✓ · og-default.png 200 ✓ · GA4 `G-Z7E84LTQZ6` on every page ✓ (gtag loaded in-browser) · sitemap 24 URLs lastmod 2026-09-08 ✓ · contact form wired ✓.
+**Contact form E2E:** test submit sent (name "Claude Test Phase3", email `qa-phase3-20260908@peakreachms.com`, company "PeakReach QA") → page confirmed "Thanks — your message is in" (webhook returned 2xx). **Contact NOT yet read back in GHL:** the webhook posts to location `PU3svlBW3x81ujPelNlV`; the LeadConnector MCP is bound to `RS0xfAV3VyR5lj97q0z6` (GGL) and the GHL UI required a login the session cannot perform. Joaquin to confirm the contact exists in PU3svlBW3x81ujPelNlV (then delete the test contact). Until read back, treat the form as "webhook accepted", not "lead lands in CRM".
 
-**Housekeeping needed (delete permission was not granted to the session):** remove `tools/__pycache__/` and `tools/_patch_generator_phase3.py` before committing.
+**Housekeeping:** done by Joaquin before commit; `.gitignore` added.
 
-### Deploy checklist (after approval)
+### Deploy checklist (steps 1–3 done 2026-09-08; 4–5 pending)
 1. `git add -A && git commit -m "SEO Phase 3: clean internal links, standard footer w/ Industries, social tags + OG card, schema (WebSite/Person/Service/Article/Breadcrumb), contact form wired, sitemap 24 URLs"` → push `main` → Cloudflare Pages auto-deploys.
 2. Live read-back: `curl -sI https://www.peakreachms.com/pricing.html` → expect 308 → `/pricing`; view-source of `/hvac-crm` → new title; `/sitemap.xml` → 24 URLs.
 3. Test contact form once; confirm contact in GHL.
@@ -112,3 +113,24 @@ Dead ends: "estimate follow up" (0 vol), "revenue recovery" (1,000 vol but healt
 3. LinkedIn URLs for `sameAs`.
 4. OK to test the contact form against production GHL once deployed.
 5. Grant delete permission (or remove `tools/__pycache__/` + `tools/_patch_generator_phase3.py` manually) before commit.
+
+## 7. Phase 4 — P1 content set (built 2026-09-08, pending commit/deploy)
+
+**New generator:** `tools/gen_articles.py` (content dicts → article template → `normalize_html`). Edit content there, re-run, commit. Never hand-edit the HTML.
+**8 new pages (900–1,100 words each, FAQPage + BreadcrumbList + Article schema, comparison table, intro "second title", one paragraph per sub-point):**
+
+| URL | Primary keyword (vol / KD) | Companion page |
+|---|---|---|
+| /best-landscaping-crm-software | landscaping crm software (480 / 9) + crm for landscapers, landscape crm | /landscaping-crm |
+| /best-hvac-crm-software | hvac crm (720 / 16), hvac crm software (720 / 11) | /hvac-crm |
+| /best-plumbing-crm-software | crm for plumbers (590 / 15), plumbing crm software | /plumbing-crm |
+| /best-electrician-crm-software | crm for electricians (320 / 5), electrician crm | /electrician-crm |
+| /best-roofing-crm-software | roofing crm (1,000 / 28), roofing crm software (480) | /roofing-crm |
+| /hvac-estimating-software | hvac estimating software (1,000 / 16) | /hvac-crm |
+| /landscaping-estimating-software | landscaping estimating software (390 / 7), landscape estimating software (590 / 7) | /landscaping-crm |
+| /landscaping-business-software | landscaping business software (880 / 21), landscaping management software (720 / 19) | /landscaping-crm |
+
+**Also changed:** trade pages now link to their comparison article ("Comparing tools?"); `/resources` gained a "Software guides" grid (8 cards); `styles.css` got table + intro-title styles; stylesheet links are now cache-busted by content hash (`?v=<md5>`); sitemap 32 URLs; all 8 slugs registered in `seo_phase3.ARTICLES` with fixed `datePublished` 2026-09-08.
+**Editorial guardrails applied:** no vendor pricing stated (changes too often); positioning summarized with a dated disclaimer; banned vocabulary check passes (no "gohighlevel alternative", "white label crm", "quoting software"); every article reframes to the Revenue Recovery System + Revenue Leak Audit CTA.
+**Verified:** normalizer idempotent (0/33 on second run) · all JSON-LD parses · titles ≤72 / descriptions ≤160 · headless render of article intro, comparison table (desktop + mobile scroll) and resources grid OK.
+**After deploy:** request indexing for the 8 URLs in GSC; check Rich Results for FAQ on one article; in 4–6 weeks read GSC queries for the 8 target terms.
