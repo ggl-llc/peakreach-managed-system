@@ -358,6 +358,7 @@ def page(a):
         body.append(f"  <h2>{e(h2)}</h2>")
         if paras is None:
             body.append("  " + table_html(a["table"]))
+            body.append(f'''  <div class="callout"><h3>Not sure which one fits — or whether the one you have is actually being run?</h3><p>A 20–30 minute operator-led Revenue Leak Audit looks at what happens to your quotes after they go out and names up to three observable leaks. Complimentary for qualified {e(a["trade_label"])}. No software to buy.</p><a class="btn btn-teal" href="/revenue-leak-audit" style="padding:11px 20px">Apply for a Revenue Leak Audit →</a></div>''')
         else:
             body.extend(f"  <p>{p}</p>" for p in paras)   # paragraphs may carry trusted inline HTML (links/em)
     faqs = "\n".join(f'    <div class="qa"><button>{e(q)}<span class="plus">+</span></button><div class="a"><p>{e(ans)}</p></div></div>' for q, ans in a["faqs"])

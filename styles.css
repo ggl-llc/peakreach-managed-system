@@ -379,3 +379,23 @@ table.cmp th{text-align:left;font-family:var(--mono);font-size:11px;letter-spaci
 table.cmp td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
 table.cmp td:first-child{color:var(--ink);white-space:nowrap}
 @media(max-width:720px){table.cmp{min-width:640px}}
+
+/* phase 5: conversion UX (tools/seo_phase3.py) */
+.usp-list.on-dark b{color:#fff}
+.reveal{transition:opacity .3s ease,transform .3s ease;transform:translateY(10px)}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.mcta{display:none}
+@media(max-width:720px){.mcta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);box-shadow:0 -8px 24px -16px rgba(10,36,64,.35);transform:translateY(120%);transition:transform .25s ease}.mcta.show{transform:none}.mcta .btn{width:100%;justify-content:center}body{padding-bottom:72px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-family:var(--mono);font-size:11.5px;color:#9fb3c8;align-self:center;margin-right:2px}
+.chips a{font-size:13px;font-weight:600;color:#dbe8f4;padding:7px 12px;border:1px solid rgba(255,255,255,.18);border-radius:100px;background:rgba(255,255,255,.05)}
+.chips a:hover{border-color:var(--teal);color:#fff}
+.callout{margin:28px 0;padding:22px 24px;border:1px solid var(--line-2);border-left:4px solid var(--teal);border-radius:14px;background:var(--sky-2)}
+.callout h3{font-size:18px;color:var(--ink);margin:0 0 6px}.callout p{margin:0 0 12px;font-size:15px}
+.lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:900px){.lead-grid{grid-template-columns:1fr}}
+.lead-grid .form-card{margin:0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+.steps div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.steps .n{font-family:var(--mono);font-size:12px;color:var(--blue);letter-spacing:.08em}.steps h4{margin:6px 0 4px;font-size:16px;color:var(--ink)}.steps p{margin:0;font-size:14px;color:var(--body)}

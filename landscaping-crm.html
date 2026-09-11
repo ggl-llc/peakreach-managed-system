@@ -14,8 +14,8 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=97e748ac">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1e10b93a">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PeakReach Managed Systems">
 <meta property="og:title" content="Landscaping CRM That Follows Up on Every Quote — Managed by PeakReach">
@@ -42,17 +42,13 @@
 
 
 <header class="nav"><div class="wrap">
-  <a class="logo" href="/">
-    <img src="assets/mark-color.png" alt="PeakReach" width="42" height="42">
-    <span class="txt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span>
-  </a>
+  <a class="logo" href="/"><img src="assets/mark-color.png" alt="PeakReach" width="42" height="42"><span class="txt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span></a>
   <nav class="links">
-    <a href="/#what">What We Do</a>
-    <a href="/#how">How It Works</a>
-    <a href="/#start">Start Here</a>
-    <a href="/standard">The Standard</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/resources">Resources</a>
+    <a href="/for-home-services" class="active" data-nav="industries">Industries</a>
+    <a href="/revenue-recovery" data-nav="system">The System</a>
+    <a href="/pricing" data-nav="pricing">Pricing</a>
+    <a href="/resources" data-nav="guides">Guides</a>
+    <a href="/contact" data-nav="contact">Contact</a>
     <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
     <a class="btn btn-teal" href="/revenue-leak-audit" style="padding:11px 20px">Find My Revenue Leaks</a>
   </nav>
@@ -64,7 +60,7 @@
     <span class="kicker"><span class="num"><i data-lucide="trees"></i></span>landscaping CRM · Revenue Recovery System</span>
     <h1 class="big">Landscaping CRM that actually follows up — so quoted jobs don&#x27;t die in the inbox.</h1>
     <p class="lead">Most landscaping companies don&#x27;t need another CRM login. They need the follow-up to happen after every estimate, every week, without the owner chasing it. PeakReach installs and operates that system — the CRM is the machinery underneath, and we run it.</p>
-    <div class="cta-row" style="justify-content:center"><a class="btn btn-teal" href="/revenue-leak-audit">Find My Revenue Leaks</a><a class="btn btn-ghost" href="/pricing">See pricing</a></div>
+    <div class="cta-row" style="justify-content:center"><a class="btn btn-teal" href="#audit">Find My Revenue Leaks</a><a class="btn btn-ghost" href="/pricing">See pricing</a></div>
     <p class="fine" style="margin-top:18px;color:var(--muted)">This is where PeakReach started: inside a real landscaping company, on real estimates, crews, and office handoffs.</p>
   </div>
 </div></section>
@@ -86,7 +82,7 @@
     <div class="card"><div class="ico"><i data-lucide="rotate-ccw"></i></div><h3>Seasonal reactivation</h3><p>Eligible past customers get a second touch before the season, not after it.</p></div>
     <div class="card"><div class="ico"><i data-lucide="flag"></i></div><h3>Exceptions land on a person</h3><p>Replies, aging quotes, and opt-outs are routed to the office — flagged, not remembered.</p></div>
   </div>
-  <div class="center" style="margin-top:40px"><a class="btn btn-teal" href="/revenue-leak-audit">Find My Revenue Leaks &#8594;</a></div>
+  <div class="center" style="margin-top:40px"><a class="btn btn-teal" href="#audit">Find My Revenue Leaks &#8594;</a></div>
 </div></section>
 
 <section class="section dark"><div class="wrap">
@@ -115,12 +111,32 @@
   </div>
 </div></section>
 
-<section class="section band"><div class="wrap">
-  <div class="center">
-    <span class="kicker"><span class="num">04</span>Start here</span>
-    <h2 class="big">One system. One clear price.</h2>
-    <p class="lead">$2,500 implementation · $1,497 per month · 12-month initial term, then month-to-month with 30 days' written notice. The first step is a 20–30 minute Revenue Leak Audit — complimentary for qualified companies.</p>
-    <div class="cta-row" style="justify-content:center"><a class="btn btn-teal" href="/revenue-leak-audit">Apply for a Revenue Leak Audit</a><a class="btn btn-ghost" href="/pricing">Review full pricing</a></div>
+<section class="section band" id="audit"><div class="wrap">
+  <div class="lead-grid">
+    <div>
+      <span class="kicker"><span class="num">04</span>Start here</span>
+      <h2 class="big">Find out where your landscaping quotes are leaking.</h2>
+      <p class="lead">A 20–30 minute operator-led Revenue Leak Audit: we look at how your estimates are followed up today, name up to three observable leaks, and hand you a one-page Revenue Leak Snapshot. Complimentary for qualified landscaping companies. No software to buy, no high-pressure sales.</p>
+      <ul class="usp-list">
+        <li><span class="dot">✓</span><span><b>One system. One clear price.</b> $2,500 implementation · $1,497 per month · 12-month initial term, then month-to-month. <a href="/pricing" style="color:var(--blue)">Full pricing →</a></span></li>
+        <li><span class="dot">✓</span><span><b>Live in 2–4 weeks</b> after access and onboarding information are complete.</span></li>
+        <li><span class="dot">✓</span><span><b>Built inside a real service business</b> — then standardized for landscaping companies that sell through estimates.</span></li>
+      </ul>
+    </div>
+    <form class="form-card" id="lead-form" novalidate data-lead="audit" data-source="Website - Landscaping CRM page" data-event="rla_form_success" data-success="Thanks — your Revenue Leak Audit request is in. We reach out within one business day to schedule it.">
+      <h3>Apply for a Revenue Leak Audit</h3>
+      <p class="fine">20–30 min · operator-led · for landscaping companies that send estimates</p>
+      <input type="hidden" name="trade" value="Landscaping">
+      <div class="field"><label>Full name *</label><input type="text" name="full_name" placeholder="Your name" required></div>
+      <div class="field"><label>Company name *</label><input type="text" name="company" placeholder="Your company" required></div>
+      <div class="field"><label>Work email *</label><input type="email" name="email" placeholder="you@company.com" required></div>
+      <div class="field"><label>Mobile phone</label><input type="tel" name="phone" placeholder="(919) 555-0123"></div>
+      <div class="field"><label>Estimates sent per month</label><select name="estimates_per_month"><option value="Under 10">Under 10</option><option value="10 to 30" selected>10 – 30</option><option value="30 to 75">30 – 75</option><option value="Over 75">Over 75</option></select></div>
+      <label class="consent"><input type="checkbox" name="consent_sms" value="true"><span>Text me about my audit. By checking this box, you agree to receive SMS messages and calls from PeakReach Managed Systems about your inquiry. Message frequency varies; message &amp; data rates may apply. Reply <b>STOP</b> to opt out, <b>HELP</b> for help. Consent is not a condition of purchase. <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>.</span></label>
+      <button type="submit" class="btn btn-teal" style="width:100%;justify-content:center;margin-top:18px">Apply for My Revenue Leak Audit</button>
+      <p class="fine" data-status role="status" aria-live="polite" style="display:none;margin-top:12px"></p>
+      <p class="fine" style="text-align:center;margin-top:12px">You keep your business data and client-owned accounts.</p>
+    </form>
   </div>
 </div></section>
 
@@ -136,6 +152,7 @@
   <p class="center" style="margin-top:12px;font-size:14px;color:var(--muted)">Other trades: <a href="/hvac-crm" style="color:var(--blue)">HVAC CRM</a> · <a href="/plumbing-crm" style="color:var(--blue)">Plumbing CRM</a> · <a href="/electrician-crm" style="color:var(--blue)">Electrician CRM</a> · <a href="/roofing-crm" style="color:var(--blue)">Roofing CRM</a> · <a href="/crm-for-contractors" style="color:var(--blue)">CRM for Contractors</a> · <a href="/for-home-services" style="color:var(--blue)">Home services &amp; contractors hub</a></p>
 </div></section>
 
+<div class="mcta"><a class="btn btn-teal" href="/revenue-leak-audit">Find my revenue leaks →</a></div>
 <footer><div class="wrap">
   <div class="foot-grid">
     <div>
@@ -187,6 +204,6 @@
   </div>
 </div></footer>
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=2547e50f"></script>
 </body>
 </html>

@@ -180,7 +180,7 @@ def page(t):
     <span class="kicker"><span class="num"><i data-lucide="{t["icon"]}"></i></span>{e(t["kw"])} · Revenue Recovery System</span>
     <h1 class="big">{e(t["hero_h1"])}</h1>
     <p class="lead">{e(t["hero_lead"])}</p>
-    <div class="cta-row" style="justify-content:center"><a class="btn btn-teal" href="revenue-leak-audit.html">Find My Revenue Leaks</a><a class="btn btn-ghost" href="pricing.html">See pricing</a></div>
+    <div class="cta-row" style="justify-content:center"><a class="btn btn-teal" href="#audit">Find My Revenue Leaks</a><a class="btn btn-ghost" href="pricing.html">See pricing</a></div>
     <p class="fine" style="margin-top:18px;color:var(--muted)">{e(t["proof"])}</p>
   </div>
 </div></section>
@@ -197,7 +197,7 @@ def page(t):
   <div class="cards" style="grid-template-columns:repeat(4,1fr)">
 {does}
   </div>
-  <div class="center" style="margin-top:40px"><a class="btn btn-teal" href="revenue-leak-audit.html">Find My Revenue Leaks &#8594;</a></div>
+  <div class="center" style="margin-top:40px"><a class="btn btn-teal" href="#audit">Find My Revenue Leaks &#8594;</a></div>
 </div></section>
 
 <section class="section dark"><div class="wrap">
@@ -223,12 +223,32 @@ def page(t):
   </div>
 </div></section>
 
-<section class="section band"><div class="wrap">
-  <div class="center">
-    <span class="kicker"><span class="num">04</span>Start here</span>
-    <h2 class="big">One system. One clear price.</h2>
-    <p class="lead">$2,500 implementation · $1,497 per month · 12-month initial term, then month-to-month with 30 days' written notice. The first step is a 20–30 minute Revenue Leak Audit — complimentary for qualified companies.</p>
-    <div class="cta-row" style="justify-content:center"><a class="btn btn-teal" href="revenue-leak-audit.html">Apply for a Revenue Leak Audit</a><a class="btn btn-ghost" href="pricing.html">Review full pricing</a></div>
+<section class="section band" id="audit"><div class="wrap">
+  <div class="lead-grid">
+    <div>
+      <span class="kicker"><span class="num">04</span>Start here</span>
+      <h2 class="big">Find out where your {e(noun(t))} quotes are leaking.</h2>
+      <p class="lead">A 20–30 minute operator-led Revenue Leak Audit: we look at how your estimates are followed up today, name up to three observable leaks, and hand you a one-page Revenue Leak Snapshot. Complimentary for qualified {e(noun(t))} companies. No software to buy, no high-pressure sales.</p>
+      <ul class="usp-list">
+        <li><span class="dot">✓</span><span><b>One system. One clear price.</b> $2,500 implementation · $1,497 per month · 12-month initial term, then month-to-month. <a href="/pricing" style="color:var(--blue)">Full pricing →</a></span></li>
+        <li><span class="dot">✓</span><span><b>Live in 2–4 weeks</b> after access and onboarding information are complete.</span></li>
+        <li><span class="dot">✓</span><span><b>Built inside a real service business</b> — then standardized for {e(noun(t))} companies that sell through estimates.</span></li>
+      </ul>
+    </div>
+    <form class="form-card" id="lead-form" novalidate data-lead="audit" data-source="Website - {e(kw_title(t))} page" data-event="rla_form_success" data-success="Thanks — your Revenue Leak Audit request is in. We reach out within one business day to schedule it.">
+      <h3>Apply for a Revenue Leak Audit</h3>
+      <p class="fine">20–30 min · operator-led · for {e(noun(t))} companies that send estimates</p>
+      <input type="hidden" name="trade" value="{e(t["name"])}">
+      <div class="field"><label>Full name *</label><input type="text" name="full_name" placeholder="Your name" required></div>
+      <div class="field"><label>Company name *</label><input type="text" name="company" placeholder="Your company" required></div>
+      <div class="field"><label>Work email *</label><input type="email" name="email" placeholder="you@company.com" required></div>
+      <div class="field"><label>Mobile phone</label><input type="tel" name="phone" placeholder="(919) 555-0123"></div>
+      <div class="field"><label>Estimates sent per month</label><select name="estimates_per_month"><option value="Under 10">Under 10</option><option value="10 to 30" selected>10 – 30</option><option value="30 to 75">30 – 75</option><option value="Over 75">Over 75</option></select></div>
+      <label class="consent"><input type="checkbox" name="consent_sms" value="true"><span>Text me about my audit. By checking this box, you agree to receive SMS messages and calls from PeakReach Managed Systems about your inquiry. Message frequency varies; message &amp; data rates may apply. Reply <b>STOP</b> to opt out, <b>HELP</b> for help. Consent is not a condition of purchase. <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>.</span></label>
+      <button type="submit" class="btn btn-teal" style="width:100%;justify-content:center;margin-top:18px">Apply for My Revenue Leak Audit</button>
+      <p class="fine" data-status role="status" aria-live="polite" style="display:none;margin-top:12px"></p>
+      <p class="fine" style="text-align:center;margin-top:12px">You keep your business data and client-owned accounts.</p>
+    </form>
   </div>
 </div></section>
 

@@ -14,8 +14,8 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=97e748ac">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1e10b93a">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PeakReach Managed Systems">
 <meta property="og:title" content="Revenue Leak Audit — PeakReach Managed Systems">
@@ -36,19 +36,15 @@
 
 
 <header class="nav"><div class="wrap">
-  <a class="logo" href="/">
-    <img src="assets/mark-color.png" alt="PeakReach" width="42" height="42">
-    <span class="txt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span>
-  </a>
+  <a class="logo" href="/"><img src="assets/mark-color.png" alt="PeakReach" width="42" height="42"><span class="txt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span></a>
   <nav class="links">
-    <a href="/#system">The System</a>
-    <a href="/standard">The Standard</a>
-    <a href="/#start">Revenue Recovery</a>
-    <a href="/pricing">Pricing</a>
-    <a href="/resources">Resources</a>
-    <a href="/contact">Contact</a>
+    <a href="/for-home-services" data-nav="industries">Industries</a>
+    <a href="/revenue-recovery" data-nav="system">The System</a>
+    <a href="/pricing" data-nav="pricing">Pricing</a>
+    <a href="/resources" data-nav="guides">Guides</a>
+    <a href="/contact" data-nav="contact">Contact</a>
     <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
-    <a class="btn btn-teal" href="/revenue-leak-audit" style="padding:11px 20px">Revenue Leak Audit</a>
+    <a class="btn btn-teal" href="/revenue-leak-audit" style="padding:11px 20px">Find My Revenue Leaks</a>
   </nav>
   <button class="menu-btn" data-menu aria-label="Menu">☰</button>
 </div></header>
@@ -79,7 +75,7 @@
   <h2 class="big" style="margin-bottom:8px">Apply now</h2>
   <p class="lead" style="margin-bottom:28px">Tell us about your business. If it's a fit, you'll be able to book your audit right away.</p>
 </div>
-<div style="max-width:640px;margin:0 auto"><form class="form-card" id="audit" novalidate>
+<div style="max-width:640px;margin:0 auto"><form class="form-card" id="audit" novalidate data-lead="audit" data-source="Website - Revenue Leak Audit" data-event="rla_form_success" data-success="Thanks — your Revenue Leak Audit request is in. We reach out within one business day to schedule it.">
       <h3>Apply for a Revenue Leak Audit</h3>
       <p class="fine">20–30 min operator-led review for qualified quote-driven businesses</p>
       <div class="field"><label>Full name *</label><input type="text" name="full_name" placeholder="Your name" required></div>
@@ -88,52 +84,20 @@
       <div class="field"><label>Biggest bottleneck right now</label><select name="bottleneck"><option value="Estimates not followed up">Estimates not followed up</option><option value="No visible pipeline">No visible pipeline</option><option value="Follow-up depends on memory">Follow-up depends on memory</option><option value="Team accountability">Team accountability</option><option value="Website / getting found online">Website / getting found online</option></select></div>
       <div class="field"><label>Work email *</label><input type="email" name="email" placeholder="you@company.com" required></div>
       <div class="field"><label>Mobile phone</label><input type="tel" name="phone" placeholder="(919) 555-0123"></div>
-      <label class="consent"><input type="checkbox" name="consent_sms" value="true" required><span>By checking this box, you agree to receive SMS text messages and phone calls from PeakReach Managed Systems about your inquiry and our services. Message frequency varies. Message &amp; data rates may apply. Reply <b>STOP</b> to opt out or <b>HELP</b> for help. Consent is not a condition of purchase. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</span></label>
+      <label class="consent"><input type="checkbox" name="consent_sms" value="true"><span>By checking this box, you agree to receive SMS text messages and phone calls from PeakReach Managed Systems about your inquiry and our services. Message frequency varies. Message &amp; data rates may apply. Reply <b>STOP</b> to opt out or <b>HELP</b> for help. Consent is not a condition of purchase. See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</span></label>
       <button type="submit" class="btn btn-teal" style="width:100%;justify-content:center;margin-top:20px">Apply for My Revenue Leak Audit</button>
-      <p class="fine" id="rla-status" role="status" aria-live="polite" style="display:none;margin-top:13px"></p>
+      <p class="fine" data-status role="status" aria-live="polite" style="display:none;margin-top:13px"></p>
       <p class="fine" style="text-align:center;margin-top:13px">You keep your business data and client-owned accounts. No high-pressure sales.</p>
-    </form>
-    <script>
-    (function () {
-      var WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/PU3svlBW3x81ujPelNlV/webhook-trigger/3e6d4a05-cadc-4bf4-ac07-69c952c619c8";
-      var form = document.getElementById("audit");
-      if (!form) return;
-      var statusEl = document.getElementById("rla-status");
-      var btn = form.querySelector("button[type=submit]");
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var full = (form.full_name.value || "").trim().replace(/\s+/g, " ");
-        var sp = full.indexOf(" ");
-        var payload = {
-          first_name: sp === -1 ? full : full.slice(0, sp),
-          last_name:  sp === -1 ? ""   : full.slice(sp + 1),
-          email:   (form.email.value || "").trim(),
-          phone:   (form.phone.value || "").trim(),
-          company: (form.company.value || "").trim(),
-          annual_revenue: form.annual_revenue.value,
-          bottleneck: form.bottleneck.value,
-          consent_sms: form.consent_sms.checked
-        };
-        btn.disabled = true;
-        statusEl.style.display = "block";
-        statusEl.textContent = "Sending…";
-        fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        })
-          .then(function (res) { if (!res.ok) throw new Error(res.status);
-            form.reset(); if (window.gtag) gtag("event", "rla_form_success", { form: "revenue_leak_audit", page: location.pathname });
-            statusEl.textContent = "Thanks — your Revenue Leak Audit request is in. We'll reach out within one business day.";
-            btn.disabled = false;
-          })
-          .catch(function () {
-            statusEl.textContent = "Something went wrong. Please email info@peakreachms.com and we'll set it up.";
-            btn.disabled = false;
-          });
-      });
-    })();
-    </script></div>
+    </form></div>
+</div></section>
+
+<section class="section band"><div class="wrap">
+  <div class="center"><span class="kicker"><span class="num">02</span>What happens next</span><h2 class="big">Three steps. No sales deck.</h2></div>
+  <div class="steps">
+    <div><span class="n">STEP 1 · TODAY</span><h4>You apply (2 minutes)</h4><p>Name, company, email — that's it. If you leave a mobile number and opt in, we can text you to schedule; otherwise we email.</p></div>
+    <div><span class="n">STEP 2 · WITHIN 1 BUSINESS DAY</span><h4>We confirm fit and book the call</h4><p>An operator (not a setter) reviews your answers and proposes a 20–30 minute slot. If we're not a fit, we say so and point you somewhere useful.</p></div>
+    <div><span class="n">STEP 3 · THE AUDIT</span><h4>You leave with a Revenue Leak Snapshot</h4><p>Up to three observable leaks with evidence and priority, on one page. Whether or not you install the system, the snapshot is yours.</p></div>
+  </div>
 </div></section>
 
 <footer><div class="wrap">
@@ -187,6 +151,6 @@
   </div>
 </div></footer>
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=2547e50f"></script>
 </body>
 </html>

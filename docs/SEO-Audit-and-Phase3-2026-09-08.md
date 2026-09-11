@@ -114,7 +114,7 @@ Dead ends: "estimate follow up" (0 vol), "revenue recovery" (1,000 vol but healt
 4. OK to test the contact form against production GHL once deployed.
 5. Grant delete permission (or remove `tools/__pycache__/` + `tools/_patch_generator_phase3.py` manually) before commit.
 
-## 7. Phase 4 — P1 content set (built 2026-09-08, pending commit/deploy)
+## 7. Phase 4 — P1 content set (✅ LIVE 2026-09-08, commit `074fb7a`)
 
 **New generator:** `tools/gen_articles.py` (content dicts → article template → `normalize_html`). Edit content there, re-run, commit. Never hand-edit the HTML.
 **8 new pages (900–1,100 words each, FAQPage + BreadcrumbList + Article schema, comparison table, intro "second title", one paragraph per sub-point):**
@@ -133,4 +133,36 @@ Dead ends: "estimate follow up" (0 vol), "revenue recovery" (1,000 vol but healt
 **Also changed:** trade pages now link to their comparison article ("Comparing tools?"); `/resources` gained a "Software guides" grid (8 cards); `styles.css` got table + intro-title styles; stylesheet links are now cache-busted by content hash (`?v=<md5>`); sitemap 32 URLs; all 8 slugs registered in `seo_phase3.ARTICLES` with fixed `datePublished` 2026-09-08.
 **Editorial guardrails applied:** no vendor pricing stated (changes too often); positioning summarized with a dated disclaimer; banned vocabulary check passes (no "gohighlevel alternative", "white label crm", "quoting software"); every article reframes to the Revenue Recovery System + Revenue Leak Audit CTA.
 **Verified:** normalizer idempotent (0/33 on second run) · all JSON-LD parses · titles ≤72 / descriptions ≤160 · headless render of article intro, comparison table (desktop + mobile scroll) and resources grid OK.
-**After deploy:** request indexing for the 8 URLs in GSC; check Rich Results for FAQ on one article; in 4–6 weeks read GSC queries for the 8 target terms.
+**Live read-back (2026-09-08, cache:no-store):** all 8 URLs 200 with new titles, comparison table, intro-title, GA4 ×1, Article+FAQPage+BreadcrumbList ✓ · sitemap 32 ✓ · trade→article link ✓ · /resources 12 cards ✓ · hashed CSS served with table styles ✓ · roofing table rendered in Chrome ✓.
+**Next:** request indexing for the 8 URLs in GSC; check Rich Results for FAQ on one article; in 4–6 weeks read GSC queries for the 8 target terms.
+
+## 8. Semrush project + two Cloudflare findings (2026-09-08)
+
+**Semrush project `www.peakreachms.com` (ID 29064374)** has Site Audit + Position Tracking enabled, but the tracking campaign is **empty** (`targets: null`) — nothing has ever been tracked. The MCP is read-only, so Joaquin configures it: target `*.peakreachms.com/*`, US national, desktop+mobile, paste `docs/semrush-tracking-keywords.txt` (38 keywords, tagged by page), competitors getjobber.com / housecallpro.com / servicetitan.com / pipelinecrm.com / smith.ai. Site Audit: last crawl 2026-09-08 02:07 UTC (pre-Phase 3): 43 errors · 8 warnings · 402 notices · 378 permanent redirects (the `.html` links, fixed) · 20 pages with one internal link (fixed). Re-run the crawl now to re-baseline; turn off "crawl subdomains" so `sites.peakreachms.com` stops polluting it.
+
+**Finding A — Cloudflare Email Address Obfuscation is ON for peakreachms.com.** Every `mailto:info@peakreachms.com` is rewritten to `/cdn-cgi/l/email-protection` → Semrush reports 40 broken internal links + 2 4xx; crawlers never see the email. Same trap already documented for greengardenlandscape.com in the Índice Operativo. Fix: Cloudflare → peakreachms.com → Scrape Shield → Email Address Obfuscation → **Off**.
+
+**Finding B — Cloudflare "Managed robots.txt" (AI bot blocking) is ON.** Live robots.txt is prefixed with Cloudflare content signals (`ai-train=no`) and `Disallow: /` for GPTBot, ClaudeBot, Google-Extended, CCBot, Applebot-Extended, meta-externalagent, Amazonbot, Bytespider. Consequences: (1) Semrush flags the file as malformed (two `User-agent: *` blocks); (2) the site opts out of AI training and of several AI answer engines' crawlers — for a B2B site that wants to be cited when owners ask ChatGPT/Perplexity "best landscaping CRM", this is a real visibility cost. Googlebot/AI Overviews are unaffected. **Decision for Joaquin:** keep the block (privacy/IP stance) or turn it off (Cloudflare → peakreachms.com → AI Audit / Bots → Manage robots.txt → off; optionally also "Block AI bots" → off). Recommendation: turn the managed robots.txt off so the repo's file is served cleanly, and allow AI crawlers — the content is written to be found.
+
+## 9. Phase 5 — conversion UX + lead capture (built 2026-09-08, pending commit/deploy)
+
+**Deep-analysis findings (live site, desktop + mobile):**
+- Home is ~18,300 px tall on mobile (~22 screens) with the only form at the very bottom; hero copy was abstract ("visible, assigned, measurable") and never named the product or the trades; no route from the hero to the SEO entry pages.
+- Trade pages (the SEO entry) had **no form** — every CTA bounced to /revenue-leak-audit. Articles had no CTA between the table and the end.
+- **Bug:** `.usp-list b{color:var(--ink)}` rendered the bold labels invisible (navy on navy) in the dark "Is this a CRM?" section on all 5 trade pages.
+- Nav had 8 items and wrapped at 1280 px; three different navs across page types.
+- Both audit forms **required** the SMS-consent checkbox — friction, and contradicts the "consent is not a condition of purchase" sentence next to it.
+- Three copies of the lead-submit JS (index, audit page, contact) with no attribution capture; GA4 events only on two of them.
+- Reveal animation (.6s, 18 px) left sections blank during fast scrolls.
+
+**Built (all through the normalizer/generators — idempotent, 0/33 on second run):**
+1. `app.js` → single `data-lead` handler for every form: payload = names + all named fields + `source`, `form`, `page`, `page_title`, `submitted_at`, first-touch **utm_* / gclid / fbclid / msclkid / landing_page / referrer** (sessionStorage), GA4 `rla_form_success`/`contact_form_success` **+ `generate_lead`**. Legacy inline scripts removed. Cache-busted by content hash (`app.js?v=`), same as CSS.
+2. **Trade pages:** "Start here" is now a two-column section with an embedded Revenue Leak Audit form (`source: "Website - {Trade} CRM page"`, hidden `trade`, `estimates_per_month`); hero + mid CTAs scroll to it.
+3. **Home hero:** concrete sub-copy (what we do, for whom), "Built for:" chips → 7 trade/segment pages, badges updated. H1 kept (approved company-first thesis).
+4. **Standard nav sitewide** (Industries · The System · Pricing · Guides · Contact · Login · CTA) with active state; **mobile sticky CTA** bar (appears after 520 px scroll; not on form pages).
+5. SMS consent optional on all forms (label now "Text me about my audit…"). Contact form migrated to the shared handler.
+6. Audit page: "What happens next — three steps, no sales deck" strip. Articles: callout CTA after the comparison table.
+7. Fixes: invisible bold labels; reveal .3s/10 px + `prefers-reduced-motion`; fonts trimmed to used weights (450/Mono 600 dropped); meta descriptions ≤155 on index, crm-for-contractors, crm-for-service-businesses, standard, for-dealers, for-commercial-services.
+
+**Verified locally (Playwright, webhook stubbed — no production writes):** 4 form types submit with correct payloads; attribution persists across pages within a session; validation message on empty submit; GA4 dataLayer receives `rla_form_success` + `generate_lead`; renders checked on desktop/mobile (hero, trade form, dark section, sticky CTA, steps).
+**Not done (needs Joaquin):** verified proof numbers for a home-page proof strip / GGL case study (no numbers invented); GHL calendar link for a post-submit "book now" (`data-next` is supported by the handler); LinkedIn company URL; Cloudflare toggles (§8).

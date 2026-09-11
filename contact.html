@@ -26,8 +26,8 @@
 <meta name="theme-color" content="#0A2440">
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;450;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=97e748ac">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1e10b93a">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"PeakReach Managed Systems","legalName":"PeakReach Marketing Solutions LLC","url":"https://www.peakreachms.com/","logo":"https://www.peakreachms.com/assets/mark-color.png","email":"info@peakreachms.com","slogan":"Built by operators. Run by systems.","description":"PeakReach installs and manages the systems that make revenue, accountability, and operations visible, repeatable, and less dependent on the owner.","address":{"@type":"PostalAddress","addressLocality":"Sanford","addressRegion":"NC","addressCountry":"US"},"areaServed":"United States"}
 </script>
@@ -36,13 +36,13 @@
 <header class="nav"><div class="wrap">
   <a class="logo" href="/"><img src="assets/mark-color.png" alt="PeakReach" width="42" height="42"><span class="txt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span></a>
   <nav class="links">
-    <a href="/#start">Revenue Recovery</a>
-    <a href="/#system">The System</a>
-    <a href="/standard">The Standard</a>
-    <a href="/resources">Resources</a>
-    <a class="active" href="/contact">Contact</a>
+    <a href="/for-home-services" data-nav="industries">Industries</a>
+    <a href="/revenue-recovery" data-nav="system">The System</a>
+    <a href="/pricing" data-nav="pricing">Pricing</a>
+    <a href="/resources" data-nav="guides">Guides</a>
+    <a href="/contact" class="active" data-nav="contact">Contact</a>
     <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
-    <a class="btn btn-teal" href="/#audit" style="padding:11px 20px">Revenue Leak Audit</a>
+    <a class="btn btn-teal" href="/revenue-leak-audit" style="padding:11px 20px">Find My Revenue Leaks</a>
   </nav>
   <button class="menu-btn" data-menu aria-label="Menu">☰</button>
 </div></header>
@@ -69,36 +69,16 @@
   <div class="form-card">
     <h3>Send a message</h3>
     <p class="fine">We reply within one business day.</p>
-    <form id="contact-form" novalidate>
+    <form id="contact-form" novalidate data-lead="contact" data-source="Website - Contact Page" data-event="contact_form_success" data-success="Thanks — your message is in. We reply within one business day.">
       <div class="field"><label>Name *</label><input type="text" name="full_name" placeholder="Your name" required></div>
       <div class="field"><label>Company</label><input type="text" name="company" placeholder="Your company"></div>
       <div class="field"><label>Work email *</label><input type="email" name="email" placeholder="you@company.com" required></div>
       <div class="field"><label>Mobile phone</label><input type="tel" name="phone" placeholder="(919) 555-0123"></div>
       <div class="field"><label>How can we help?</label><textarea name="message" rows="3" placeholder="..."></textarea></div>
       <button type="submit" class="btn btn-teal" style="width:100%;justify-content:center;margin-top:18px">Send message</button>
-      <p class="fine" id="contact-status" role="status" aria-live="polite" style="display:none;margin-top:12px"></p>
+      <p class="fine" data-status role="status" aria-live="polite" style="display:none;margin-top:12px"></p>
       <p class="fine" style="text-align:center;margin-top:12px">Prefer a review of your follow-up? <a href="/revenue-leak-audit" style="color:var(--blue);font-weight:600">Apply for a Revenue Leak Audit →</a></p>
     </form>
-    <script>
-    (function () {
-      var form = document.getElementById("contact-form"); if (!form) return;
-      var statusEl = document.getElementById("contact-status"), btn = form.querySelector("button[type=submit]");
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var full = (form.full_name.value || "").trim().replace(/\s+/g, " "), sp = full.indexOf(" ");
-        var email = (form.email.value || "").trim();
-        if (!full || !email) { statusEl.style.display = "block"; statusEl.textContent = "Please add your name and work email."; return; }
-        var payload = { first_name: sp === -1 ? full : full.slice(0, sp), last_name: sp === -1 ? "" : full.slice(sp + 1),
-          email: email, phone: (form.phone.value || "").trim(), company: (form.company.value || "").trim(),
-          message: (form.message.value || "").trim(), source: "Website - Contact Page", page: location.pathname };
-        btn.disabled = true; statusEl.style.display = "block"; statusEl.textContent = "Sending…";
-        fetch("https://services.leadconnectorhq.com/hooks/PU3svlBW3x81ujPelNlV/webhook-trigger/3e6d4a05-cadc-4bf4-ac07-69c952c619c8", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
-          .then(function (res) { if (!res.ok) throw new Error(res.status); form.reset(); if (window.gtag) gtag("event", "contact_form_success", { form: "contact", page: location.pathname });
-            statusEl.textContent = "Thanks — your message is in. We reply within one business day."; btn.disabled = false; })
-          .catch(function () { statusEl.textContent = "Something went wrong. Please email info@peakreachms.com."; btn.disabled = false; });
-      });
-    })();
-    </script>
   </div>
 </div>
   <div class="mapwrap">
@@ -157,6 +137,6 @@
   </div>
 </div></footer>
 <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=2547e50f"></script>
 </body>
 </html>

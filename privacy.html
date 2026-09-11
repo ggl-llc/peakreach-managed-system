@@ -27,7 +27,7 @@
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{--navy:#0A2440;--navy-2:#0E3157;--blue:#1E76C2;--teal:#16C0A4;--teal-deep:#0E9A83;
     --ink:#0C2036;--body:#48596B;--muted:#7C8D9C;--sky:#EDF3FA;--line:#E1E9F1;
@@ -83,10 +83,16 @@
 <body>
 <header class="nav"><div class="wrap">
   <a class="logo" href="/"><img src="assets/mark-color.png" alt="PeakReach" width="42" height="42"><span class="txt"><b>PeakReach</b><span>MANAGED SYSTEMS</span></span></a>
-  <span style="display:flex;align-items:center;gap:16px">
-    <a href="https://app.peakreachms.com" target="_blank" rel="noopener" style="font-size:14.5px;font-weight:600;color:#243b52;border:1px solid #CFDBE8;border-radius:9px;padding:9px 15px">Login</a>
-    <a class="nav-back" href="/">← Back to home</a>
-  </span>
+  <nav class="links">
+    <a href="/for-home-services" data-nav="industries">Industries</a>
+    <a href="/revenue-recovery" data-nav="system">The System</a>
+    <a href="/pricing" data-nav="pricing">Pricing</a>
+    <a href="/resources" data-nav="guides">Guides</a>
+    <a href="/contact" data-nav="contact">Contact</a>
+    <a class="btn btn-ghost" href="https://app.peakreachms.com" target="_blank" rel="noopener" style="padding:11px 18px">Login</a>
+    <a class="btn btn-teal" href="/revenue-leak-audit" style="padding:11px 20px">Find My Revenue Leaks</a>
+  </nav>
+  <button class="menu-btn" data-menu aria-label="Menu">☰</button>
 </div></header>
 
 <section class="hero"><div class="wrap">
